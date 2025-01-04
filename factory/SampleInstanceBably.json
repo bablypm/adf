@@ -1,0 +1,9 @@
+{
+	"name": "SampleInstanceBably",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2bf39f00-9ee3-44db-a02c-4834576be13a",
+		"tenantId": "b208e52a-0bed-4889-85b0-0bca2c226f19"
+	}
+}
