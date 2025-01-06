@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "SampleInstanceBably"
+		},
+		"LinkedServiceInputBlobStorage_connectionString": {
+			"value": ""
+		},
+		"LinkedServiceSqlOutput_password": {
+			"value": ""
+		},
+		"LinkedServiceSqlOutput_properties_typeProperties_server": {
+			"value": "bably-sql-server.database.windows.net"
+		},
+		"LinkedServiceSqlOutput_properties_typeProperties_database": {
+			"value": "bably-sql-db"
+		},
+		"LinkedServiceSqlOutput_properties_typeProperties_userName": {
+			"value": "bably"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
