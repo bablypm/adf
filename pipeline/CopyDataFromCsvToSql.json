@@ -1,0 +1,279 @@
+{
+	"name": "CopyDataFromCsvToSql",
+	"properties": {
+		"description": "This task is created using the CopyDataTool",
+		"activities": [
+			{
+				"name": "Copy_wky",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "input//FSI-2023-DOWNLOAD.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.FSI-2023-DOWNLOAD"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Info",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "CopyDataToolSourceDataConnection",
+								"type": "LinkedServiceReference"
+							},
+							"path": "input"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Year",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Year",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Rank",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Rank",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Total",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Total",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S1: Demographic Pressures",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "S1: Demographic Pressures",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S2: Refugees and IDPs",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "S2: Refugees and IDPs",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "C3: Group Grievance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "C3: Group Grievance",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "E3: Human Flight and Brain Drain",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "E3: Human Flight and Brain Drain",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "E2: Economic Inequality",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "E2: Economic Inequality",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "E1: Economy",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "E1: Economy",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P1: State Legitimacy",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "P1: State Legitimacy",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P2: Public Services",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "P2: Public Services",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P3: Human Rights",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "P3: Human Rights",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "C1: Security Apparatus",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "C1: Security Apparatus",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "C2: Factionalized Elites",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "C2: Factionalized Elites",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "X1: External Intervention",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "X1: External Intervention",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_wky",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_wky",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
