@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "SampleInstanceBably"
 		},
+		"CopyDataToolDestinationConnection_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'CopyDataToolDestinationConnection'"
+		},
+		"CopyDataToolSourceDataConnection_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CopyDataToolSourceDataConnection'"
+		},
 		"LinkedServiceInputBlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LinkedServiceInputBlobStorage'"
@@ -14,6 +22,18 @@
 		"LinkedServiceSqlOutput_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LinkedServiceSqlOutput'"
+		},
+		"CopyDataToolDestinationConnection_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "bably-sql-server.database.windows.net"
+		},
+		"CopyDataToolDestinationConnection_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "bably-sql-db"
+		},
+		"CopyDataToolDestinationConnection_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "bably"
 		},
 		"LinkedServiceSqlOutput_properties_typeProperties_server": {
 			"type": "string",
@@ -54,11 +74,26 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"CopyDataToolDestinationConnection_password": {
+						"value": "[parameters('CopyDataToolDestinationConnection_password')]"
+					},
+					"CopyDataToolSourceDataConnection_connectionString": {
+						"value": "[parameters('CopyDataToolSourceDataConnection_connectionString')]"
+					},
 					"LinkedServiceInputBlobStorage_connectionString": {
 						"value": "[parameters('LinkedServiceInputBlobStorage_connectionString')]"
 					},
 					"LinkedServiceSqlOutput_password": {
 						"value": "[parameters('LinkedServiceSqlOutput_password')]"
+					},
+					"CopyDataToolDestinationConnection_properties_typeProperties_server": {
+						"value": "[parameters('CopyDataToolDestinationConnection_properties_typeProperties_server')]"
+					},
+					"CopyDataToolDestinationConnection_properties_typeProperties_database": {
+						"value": "[parameters('CopyDataToolDestinationConnection_properties_typeProperties_database')]"
+					},
+					"CopyDataToolDestinationConnection_properties_typeProperties_userName": {
+						"value": "[parameters('CopyDataToolDestinationConnection_properties_typeProperties_userName')]"
 					},
 					"LinkedServiceSqlOutput_properties_typeProperties_server": {
 						"value": "[parameters('LinkedServiceSqlOutput_properties_typeProperties_server')]"

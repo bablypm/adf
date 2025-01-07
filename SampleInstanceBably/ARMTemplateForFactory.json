@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "SampleInstanceBably"
 		},
+		"CopyDataToolDestinationConnection_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'CopyDataToolDestinationConnection'"
+		},
+		"CopyDataToolSourceDataConnection_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CopyDataToolSourceDataConnection'"
+		},
 		"LinkedServiceInputBlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LinkedServiceInputBlobStorage'"
@@ -14,6 +22,18 @@
 		"LinkedServiceSqlOutput_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LinkedServiceSqlOutput'"
+		},
+		"CopyDataToolDestinationConnection_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "bably-sql-server.database.windows.net"
+		},
+		"CopyDataToolDestinationConnection_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "bably-sql-db"
+		},
+		"CopyDataToolDestinationConnection_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "bably"
 		},
 		"LinkedServiceSqlOutput_properties_typeProperties_server": {
 			"type": "string",
@@ -32,6 +52,297 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyDataFromCsvToSql')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "This task is created using the CopyDataTool",
+				"activities": [
+					{
+						"name": "Copy_wky",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "input//FSI-2023-DOWNLOAD.csv"
+							},
+							{
+								"name": "Destination",
+								"value": "dbo.FSI-2023-DOWNLOAD"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false,
+							"validateDataConsistency": false,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Info",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "CopyDataToolSourceDataConnection",
+										"type": "LinkedServiceReference"
+									},
+									"path": "input"
+								}
+							},
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Year",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Year",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Rank",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Rank",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Total",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Total",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "S1: Demographic Pressures",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "S1: Demographic Pressures",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "S2: Refugees and IDPs",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "S2: Refugees and IDPs",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "C3: Group Grievance",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "C3: Group Grievance",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "E3: Human Flight and Brain Drain",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "E3: Human Flight and Brain Drain",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "E2: Economic Inequality",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "E2: Economic Inequality",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "E1: Economy",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "E1: Economy",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "P1: State Legitimacy",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "P1: State Legitimacy",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "P2: Public Services",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "P2: Public Services",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "P3: Human Rights",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "P3: Human Rights",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "C1: Security Apparatus",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "C1: Security Apparatus",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "C2: Factionalized Elites",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "C2: Factionalized Elites",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "X1: External Intervention",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "X1: External Intervention",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_wky",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_wky",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_wky')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_wky')]",
+				"[concat(variables('factoryId'), '/linkedServices/CopyDataToolSourceDataConnection')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -217,6 +528,155 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceInputBlobStorage')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_wky')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CopyDataToolDestinationConnection",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "FSI-2023-DOWNLOAD"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CopyDataToolDestinationConnection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_wky')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CopyDataToolSourceDataConnection",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "FSI-2023-DOWNLOAD.csv",
+						"container": "input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Year",
+						"type": "String"
+					},
+					{
+						"name": "Rank",
+						"type": "String"
+					},
+					{
+						"name": "Total",
+						"type": "String"
+					},
+					{
+						"name": "S1: Demographic Pressures",
+						"type": "String"
+					},
+					{
+						"name": "S2: Refugees and IDPs",
+						"type": "String"
+					},
+					{
+						"name": "C3: Group Grievance",
+						"type": "String"
+					},
+					{
+						"name": "E3: Human Flight and Brain Drain",
+						"type": "String"
+					},
+					{
+						"name": "E2: Economic Inequality",
+						"type": "String"
+					},
+					{
+						"name": "E1: Economy",
+						"type": "String"
+					},
+					{
+						"name": "P1: State Legitimacy",
+						"type": "String"
+					},
+					{
+						"name": "P2: Public Services",
+						"type": "String"
+					},
+					{
+						"name": "P3: Human Rights",
+						"type": "String"
+					},
+					{
+						"name": "C1: Security Apparatus",
+						"type": "String"
+					},
+					{
+						"name": "C2: Factionalized Elites",
+						"type": "String"
+					},
+					{
+						"name": "X1: External Intervention",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CopyDataToolSourceDataConnection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyDataToolDestinationConnection')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('CopyDataToolDestinationConnection_properties_typeProperties_server')]",
+					"database": "[parameters('CopyDataToolDestinationConnection_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('CopyDataToolDestinationConnection_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('CopyDataToolDestinationConnection_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyDataToolSourceDataConnection')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('CopyDataToolSourceDataConnection_connectionString')]"
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/LinkedServiceInputBlobStorage')]",
