@@ -1,0 +1,51 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SourceDataset_wky",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "sort1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Country as string,",
+				"          Year as string,",
+				"          Rank as string,",
+				"          Total as string,",
+				"          {S1: Demographic Pressures} as string,",
+				"          {S2: Refugees and IDPs} as string,",
+				"          {C3: Group Grievance} as string,",
+				"          {E3: Human Flight and Brain Drain} as string,",
+				"          {E2: Economic Inequality} as string,",
+				"          {E1: Economy} as string,",
+				"          {P1: State Legitimacy} as string,",
+				"          {P2: Public Services} as string,",
+				"          {P3: Human Rights} as string,",
+				"          {C1: Security Apparatus} as string,",
+				"          {C2: Factionalized Elites} as string,",
+				"          {X1: External Intervention} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 filter(equals(Country, \"india\")) ~> filter1",
+				"filter1 sort(asc(Country, true)) ~> sort1"
+			]
+		}
+	}
+}
