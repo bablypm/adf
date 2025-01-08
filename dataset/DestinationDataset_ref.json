@@ -1,0 +1,16 @@
+{
+	"name": "DestinationDataset_ref",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CopyDataToolDestinationConnection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "annual-working-hours-per-worker"
+		}
+	}
+}
