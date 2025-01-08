@@ -1,0 +1,41 @@
+{
+	"name": "SourceDataset_ref",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CopyDataToolSourceDataConnection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "annual-working-hours-per-worker.csv",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Entity",
+				"type": "String"
+			},
+			{
+				"name": "Code",
+				"type": "String"
+			},
+			{
+				"name": "Year",
+				"type": "String"
+			},
+			{
+				"name": "Average annual working hours per worker",
+				"type": "String"
+			}
+		]
+	}
+}
